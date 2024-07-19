@@ -129,3 +129,5 @@ Given your preferences and resources, here's a more detailed plan to set up your
 6. compare to https://github.com/meta-llama/codellama/blob/main/example_completion.py and https://github.com/meta-llama/codellama/blob/main/example_instructions.py
 
 7. do i need to add more to my gitignore file? https://github.com/meta-llama/codellama/blob/main/.gitignore
+
+8. no more data directory with user.json
