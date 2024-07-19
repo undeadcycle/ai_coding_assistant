@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=AI Coding Assistant
+Exec=sh -c 'source activate ai_coding_assistant && python /path/to/ai_coding_assistant/src/main.py'
+Icon=/path/to/icon.png
+Type=Application
+Terminal=false
