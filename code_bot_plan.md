@@ -118,9 +118,9 @@ Given your preferences and resources, here's a more detailed plan to set up your
 
 2. create installer to cleanly place files in correct place? .deb? prompt for model weights location?
 
-3. have conda_env.sh write CLONE_PATH variable to path.env
+3. ~~ have conda_env.sh write CLONE_PATH variable to path.env ~~
 
-4. 
+4. hugginface
   1. I think hugginface token is not being used? add it back in for robustness with other models? remove it?
   2. i dont think i need the hugginface repo at all anymore since using the model straight from meta?
 
@@ -131,3 +131,7 @@ Given your preferences and resources, here's a more detailed plan to set up your
 7. do i need to add more to my gitignore file? https://github.com/meta-llama/codellama/blob/main/.gitignore
 
 8. no more data directory with user.json
+
+9. do my paths in my variables in .env need to be in ""?
+
+10. combine auth.env and path.env to .env
