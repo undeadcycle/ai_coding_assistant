@@ -10,6 +10,12 @@ Run conda_env.sh to create the environment and handle dependencies
 ### Prerequisites
 - [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html)
 - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+- a directory named ai_coding_assistant with auth.env and path.env
+    auth.env:
+        HF_TOKEN=[your hugginface token] # TODO: i dont think i am using this anymore
+    path.env:
+        CLONE_PATH=[path/to/your/cloned/repo] # TODO: should this be empty and filled by conda_env.sh ?
+        MODEL_PATH=[path/to/your/model/weights]
 
 ### 1. Clone the Repository
 ```bash

@@ -118,4 +118,14 @@ Given your preferences and resources, here's a more detailed plan to set up your
 
 2. create installer to cleanly place files in correct place? .deb? prompt for model weights location?
 
-3. modify conda_env.sh to place git ignore in root directory of project
+3. have conda_env.sh write CLONE_PATH variable to path.env
+
+4. 
+  1. I think hugginface token is not being used? add it back in for robustness with other models? remove it?
+  2. i dont think i need the hugginface repo at all anymore since using the model straight from meta?
+
+5. do i need these prerequisites to run codellama? torch, fairscale, fire, sentencepiece
+
+6. compare to https://github.com/meta-llama/codellama/blob/main/example_completion.py and https://github.com/meta-llama/codellama/blob/main/example_instructions.py
+
+7. do i need to add more to my gitignore file? https://github.com/meta-llama/codellama/blob/main/.gitignore
