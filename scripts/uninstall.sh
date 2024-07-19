@@ -27,3 +27,5 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 else
   echo "Repository removal cancelled."
 fi
+
+# TODO: remove pycache?
