@@ -115,6 +115,9 @@ Given your preferences and resources, here's a more detailed plan to set up your
 # TODO: 
 
 1. finish .desktop file
+  1. path to anaconda environment
+  2. fix path to main.py
+  3. find or create an icon to package with
 
 2. create installer to cleanly place files in correct place? .deb? prompt for model weights location?
 
@@ -134,4 +137,4 @@ Given your preferences and resources, here's a more detailed plan to set up your
 
 9. do my paths in my variables in .env need to be in ""?
 
-10. combine auth.env and path.env to .env
+10. merge auth.env and path.env to .env
