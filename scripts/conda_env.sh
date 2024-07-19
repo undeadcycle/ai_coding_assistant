@@ -8,8 +8,12 @@ CHECK_FILES=True
 ENV_NAME="codeLlama7bInstruct"
 KERNEL_NAME="Python ($ENV_NAME)"
 
+# Get the absolute path minus the current directory
+ROOT_PATH=$(pwd | sed 's#/[^/]*$##')
+check_error "Failed to get absolute path"
+
 # Set log file
-LOG_FILE="../setup.log"
+LOG_FILE="$ROOT_PATH/setup.log"
 
 # Function to log messages
 log_message() {
@@ -25,14 +29,23 @@ check_error() {
 }
 
 # Create a .env file if it doesn't exist
-if [ ! -f ../.env ]; then
-  touch ../.env
+if [ ! -f $ROOT_PATH/.env ]; then
+  touch $ROOT_PATH/.env
 fi
 
-# TODO: promt for location of model files and write to .env as MODEL_PATH
+# Write ROOT_PATH to .env file
+echo "ROOT_PATH=$ROOT_PATH" >> $ROOT_PATH/.env
+check_error "Failed to write ROOT_PATH to .env file"
+
+# Promt for location of model files 
+read -p "Enter the location (absolute path) of the model files: " MODEL_PATH
+
+# Write MODEL_PATH variable to the .env file
+echo "MODEL_PATH=$MODEL_PATH" >> $ROOT_PATH/.env
+check_error "Failed to write MODEL_PATH to .env file"
 
 # Write ENV_NAME variable to the .env file
-echo "ENV_NAME=$ENV_NAME" >> ../.env
+echo "ENV_NAME=$ENV_NAME" >> $ROOT_PATH/.env
 check_error "Failed to write ENV_NAME to .env file"
 
 # Create and activate conda environment
@@ -64,28 +77,24 @@ python -m ipykernel install --user --name=$ENV_NAME --display-name $KERNEL_NAME
 check_error "Failed to failed to install Jupyer OR create a kernel"
 
 # Write KERNEL_NAME variable to the .env file
-echo "KERNEL_NAME=$KERNEL_NAME" >> ../.env
+echo "KERNEL_NAME=$KERNEL_NAME" >> $ROOT_PATH/.env
 check_error "Failed to write KERNEL_NAME to .env file"
 
 # TODO: how do i want handle tokenizer etc (this is not in the cloned repo)? I dont think I need this repo anymore
-if [ ! -d "../models" ]; then
-  mkdir ../models
+if [ ! -d "$ROOT_PATH/models" ]; then
+  mkdir $ROOT_PATH/models
 fi
 check_error "Failed to find/create models directory"
 
-# Get the absolute path minus the current directory
-CURRENT_PATH=$(pwd | sed 's#/[^/]*$##')
-check_error "Failed to get absolute path"
-echo "ROOT_PATH=$CURRENT_PATH" >> ../.env
-check_error "Failed to write ROOT_PATH to .env file"
+
 
 # Write CLONE_PATH to the .env file
-echo "CLONE_PATH=$CURRENT_PATH/models" >> ../.env
-check_error "Failed to write CURRENT_PATH to .env file"
+echo "CLONE_PATH=$ROOT_PATH/models" >> $ROOT_PATH/.env
+check_error "Failed to write ROOT_PATH to .env file"
 
 # Clone the GitHub repository (if not already cloned)
-if [ ! -d "../models/codellama" ]; then
-  git clone https://github.com/meta-llama/codellama.git ../models
+if [ ! -d "$ROOT_PATH/models/codellama" ]; then
+  git clone https://github.com/meta-llama/codellama.git $ROOT_PATH/models
   echo "Codellama repository cloned successfully!"
 fi
 check_error "Failed to clone GitHub repo"
@@ -95,14 +104,14 @@ pip install -e $CLONE_PATH
 check_error "Failed to make GitHub repo editable"
 
 # Check if .gitignore exists in the parent directory
-if [ ! -f ../.gitignore ]; then
-  touch ../.gitignore
+if [ ! -f $ROOT_PATH/.gitignore ]; then
+  touch $ROOT_PATH/.gitignore
 fi
 check_error "Failed to create .gitignore file"
 
 # Ensure that the auth.env and path.env files are ignored
-if ! grep -qxF ".env" ../.gitignore; then
-  echo "*.env" >> ../.gitignore
+if ! grep -qxF ".env" $ROOT_PATH/.gitignore; then
+  echo "*.env" >> $ROOT_PATH/.gitignore
 fi
 check_error "Failed to write *.env to .gitignore file"
 
@@ -114,41 +123,41 @@ if [ "$DISPLAY_LOG" = True ]; then
   cat $LOG_FILE
 fi
 
-# TODO: Check if all files exist in correct location
+# Check if all files exist in correct location
 if [ "$CHECK_FILES" = True ]; then
   FILES_TO_CHECK=(
-    # "${CURRENT_PATH}/ai_coding_assistant.code-workspace"
-    # "${CURRENT_PATH}/auth.env"
-    # "${CURRENT_PATH}/code_bot_plan.md"
-    # "${CURRENT_PATH}/data/users.json"
-    # "${CURRENT_PATH}/models/codellama/codellama.egg-info/dependency_links.txt"
-    # "${CURRENT_PATH}/models/codellama/CODE_OF_CONDUCT.md"
-    # "${CURRENT_PATH}/models/codellama/CONTRIBUTING.md"
-    # "${CURRENT_PATH}/models/codellama/dev-requirements.txt"
-    # "${CURRENT_PATH}/models/codellama/download.sh"
-    # "${CURRENT_PATH}/models/codellama/example_completion.py"
-    # "${CURRENT_PATH}/models/codellama/example_infilling.py"
-    # "${CURRENT_PATH}/models/codellama/example_instructions.py"
-    # "${CURRENT_PATH}/models/codellama/LICENSE"
-    # "${CURRENT_PATH}/models/codellama/llama/generation.py"
-    # "${CURRENT_PATH}/models/codellama/llama/__(link unavailable)"
-    # "${CURRENT_PATH}/models/codellama/llama/model.py"
-    # "${CURRENT_PATH}/models/codellama/llama/tokenizer.py"
-    # "${CURRENT_PATH}/models/codellama/MODEL_CARD.md"
-    # "${CURRENT_PATH}/models/codellama/README.md"
-    # "${CURRENT_PATH}/models/codellama/requirements.txt"
-    # "${CURRENT_PATH}/models/codellama/setup.py"
-    # "${CURRENT_PATH}/models/codellama/USE_POLICY.md"
-    # "${CURRENT_PATH}/path.env"
-    "${CURRENT_PATH}/README.md"
-    "${CURRENT_PATH}/scripts/conda_env.sh"
-    "${CURRENT_PATH}/scripts/uninstall.sh"
-    "${CURRENT_PATH}/src/auth.py"
-    "${CURRENT_PATH}/src/chatbot.py"
-    "${CURRENT_PATH}/src/gui.py"
-    "${CURRENT_PATH}/src/main.py"
-    "${CURRENT_PATH}/.env"
-    # "${CURRENT_PATH}/        path to model weights
+    # "${ROOT_PATH}/ai_coding_assistant.code-workspace"
+    # "${ROOT_PATH}/auth.env"
+    # "${ROOT_PATH}/code_bot_plan.md"
+    # "${ROOT_PATH}/data/users.json"
+    # "${ROOT_PATH}/models/codellama/codellama.egg-info/dependency_links.txt"
+    # "${ROOT_PATH}/models/codellama/CODE_OF_CONDUCT.md"
+    # "${ROOT_PATH}/models/codellama/CONTRIBUTING.md"
+    # "${ROOT_PATH}/models/codellama/dev-requirements.txt"
+    # "${ROOT_PATH}/models/codellama/download.sh"
+    # "${ROOT_PATH}/models/codellama/example_completion.py"
+    # "${ROOT_PATH}/models/codellama/example_infilling.py"
+    # "${ROOT_PATH}/models/codellama/example_instructions.py"
+    # "${ROOT_PATH}/models/codellama/LICENSE"
+    # "${ROOT_PATH}/models/codellama/llama/generation.py"
+    # "${ROOT_PATH}/models/codellama/llama/__(link unavailable)"
+    # "${ROOT_PATH}/models/codellama/llama/model.py"
+    # "${ROOT_PATH}/models/codellama/llama/tokenizer.py"
+    # "${ROOT_PATH}/models/codellama/MODEL_CARD.md"
+    # "${ROOT_PATH}/models/codellama/README.md"
+    # "${ROOT_PATH}/models/codellama/requirements.txt"
+    # "${ROOT_PATH}/models/codellama/setup.py"
+    # "${ROOT_PATH}/models/codellama/USE_POLICY.md"
+    # "${ROOT_PATH}/path.env"
+    "${ROOT_PATH}/README.md"
+    "${ROOT_PATH}/scripts/conda_env.sh"
+    "${ROOT_PATH}/scripts/uninstall.sh"
+    "${ROOT_PATH}/src/auth.py"
+    "${ROOT_PATH}/src/chatbot.py"
+    "${ROOT_PATH}/src/gui.py"
+    "${ROOT_PATH}/src/main.py"
+    "${ROOT_PATH}/.env"
+    # "${ROOT_PATH}/        path to model weights
   )
 
   for file in ${FILES_TO_CHECK[@]}; do
