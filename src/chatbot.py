@@ -8,7 +8,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Load environment variables from auth.env
-load_dotenv('auth.env')
+load_dotenv('path.env')
 
 # Specify the path to your local model
 model_path = os.getenv("MODEL_PATH", "~/CodeLlama-7b-Instruct")

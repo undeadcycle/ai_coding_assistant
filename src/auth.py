@@ -8,7 +8,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Load environment variables from auth.env
-load_dotenv('auth.env')
+load_dotenv('auth.env') # TODO: does this need to be ../auth.env
 
 # Access environment variables
 username = os.getenv('USERNAME')
