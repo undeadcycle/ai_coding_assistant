@@ -18,6 +18,7 @@ conda install -c conda-forge jupyter ipykernel -y
 python -m ipykernel install --user --name=$ENV_NAME --display-name "Python ($ENV_NAME)"
 
 # Clone the GitHub repository (if not already cloned)
+# TODO: mk dir models to place place repo in. how do i want handle tokenizer etc?
 if [ ! -d "~/ai_models/codellama" ]; then
   git clone https://github.com/meta-llama/codellama.git ~/ai_models/codellama
 fi
