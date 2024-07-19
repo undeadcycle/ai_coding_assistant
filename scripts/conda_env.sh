@@ -2,6 +2,7 @@
 
 # Troublshooting variables
 DISPLAY_LOG=True
+CHECK_FILES=True
 
 # Name of the conda environment
 ENV_NAME="codeLlama7bInstruct"
@@ -27,6 +28,8 @@ check_error() {
 if [ ! -f ../.env ]; then
   touch ../.env
 fi
+
+# TODO: promt for location of model files and write to .env as MODEL_PATH
 
 # Write ENV_NAME variable to the .env file
 echo "ENV_NAME=$ENV_NAME" >> ../.env
@@ -73,6 +76,8 @@ check_error "Failed to find/create models directory"
 # Get the absolute path minus the current directory
 CURRENT_PATH=$(pwd | sed 's#/[^/]*$##')
 check_error "Failed to get absolute path"
+echo "ROOT_PATH=$CURRENT_PATH" >> ../.env
+check_error "Failed to write ROOT_PATH to .env file"
 
 # Write CLONE_PATH to the .env file
 echo "CLONE_PATH=$CURRENT_PATH/models" >> ../.env
