@@ -26,7 +26,13 @@ fi
 # Install the repository in editable mode
 pip install -e ~/ai_models/codellama
 
-# Ensure that the auth.env file is ignored
-if ! grep -qxF "auth.env" .gitignore; then
-  echo "auth.env" >> .gitignore
+# Check if .gitignore exists in the parent directory
+if [ ! -f ../.gitignore ]; then
+  touch ../.gitignore
+fi
+
+# Ensure that the auth.env and path.env files are ignored
+if ! grep -qxF "auth.env" ../.gitignore && ! grep -qxF "path.env" ../.gitignore; then
+  echo "auth.env
+path.env" >> ../.gitignore
 fi

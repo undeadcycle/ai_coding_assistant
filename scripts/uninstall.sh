@@ -1,4 +1,5 @@
 #!/bin/bash
+source ../path.env
 
 # Name of the conda environment
 ENV_NAME="codeLlama7bInstruct"
@@ -10,7 +11,7 @@ conda remove --name $ENV_NAME --all -y
 jupyter kernelspec remove $ENV_NAME -y
 
 # Remove the cloned repository
-rm -rf ~/ai_models/codellama
+rm -rf ${CLONE_PATH}
 
 # Inform the user
 echo "Environment, kernel, and cloned repository have been removed."
