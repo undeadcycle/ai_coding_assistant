@@ -1,17 +1,29 @@
 #!/bin/bash
 source ../path.env
 
-# Name of the conda environment
-ENV_NAME="codeLlama7bInstruct"
-
 # Remove the conda environment
-conda remove --name $ENV_NAME --all -y
+read -p "Remove environment ${ENV_NAME}? (y/n) " -r
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+  conda remove --name ${ENV_NAME} --all -y
+  echo "Environment ${ENV_NAME} removed."
+else
+  echo "Environment removal cancelled."
+fi
 
 # Remove the Jupyter kernel
-jupyter kernelspec remove $ENV_NAME -y
+read -p "Remove Jupyter kernel ${KERNEL_NAME}? (y/n) " -r
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+  jupyter kernelspec remove ${KERNEL_NAME} -y
+  echo "Jupyter kernel ${KERNEL_NAME} removed."
+else
+  echo "Kernel removal cancelled."
+fi
 
 # Remove the cloned repository
-rm -rf ${CLONE_PATH}
-
-# Inform the user
-echo "Environment, kernel, and cloned repository have been removed."
+read -p "Remove cloned repository at ${CLONE_PATH}? (y/n) " -r
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+  rm -rf ${CLONE_PATH}
+  echo "Cloned repository at ${CLONE_PATH} removed."
+else
+  echo "Repository removal cancelled."
+fi
