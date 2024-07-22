@@ -138,3 +138,5 @@ Given your preferences and resources, here's a more detailed plan to set up your
 9. do my paths in my variables in .env need to be in ""?
 
 10. merge auth.env and path.env to .env
+
+11. pyqt or electron to handle gui?
