@@ -3,11 +3,11 @@
 # Get the absolute path minus the current directory
 ROOT_PATH=$(dirname "${0%/*}")
 
-# Name of the conda environment
+# Name of the conda environment an jupyter kernel
 ENV_NAME="codeLlama7bInstruct"
 KERNEL_NAME="Python ($ENV_NAME)"
 
-# Set log file and .env file
+# Set sutup.log, .env, and git_repo as variables
 LOG_FILE="$ROOT_PATH/setup.log"
 ENV_FILE="$ROOT_PATH/.env"
 REPO_DIR="$ROOT_PATH/git_repo"
@@ -20,12 +20,17 @@ pip_packages=(
   "python-dotenv"
   )
 
-echo "starting log" >> $LOG_FILE
+echo -e "starting script... \n" >> $LOG_FILE
 
-exec > >(tee -a "$LOG_FILE")
+# Debugging: Uncomment the following line if you want to log all terminal output (bash -x is preferred)
+# exec > >(tee -a "$LOG_FILE")
 
 # Trap error and write to log file
-trap 'echo "$(date) - Error occurred in ${BASH_SOURCE[0]} at line ${LINENO}: $? - $BASH_COMMAND" >> "$LOG_FILE"' ERR
+trap 'echo -e "\n$(date) - Error occurred in ${BASH_SOURCE[0]} at line ${LINENO}: $? - $BASH_COMMAND\n" >> "$LOG_FILE"' ERR
+
+# Debugging: Test the error trap by using a failing command
+echo "Testing the error trap..." >> $LOG_FILE
+false
 
 # Variables to write to .env file
 env_vars=(
